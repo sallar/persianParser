@@ -7,7 +7,7 @@ A javascript library to convert Persian (Farsi) text to another unicode range so
 Please note that this library is under heavy development and I don't recommend using it in production environment since it might cause some problems and crash the iOS browser if used on a large amount of text.
 
 ## Demo
-Please visit [The Demo Page](http://sallar.github.io/persianParser) on your iOS or Android device.  
+Please visit [The Demo Page](http://sallar.github.io/persianParser) on your iOS device using Safari or Google Chrome.  
 
 *Please note* That newer versions of Google Chrome for Android acutally support arabic/persian webfonts and you don't need to use this for that.
 
