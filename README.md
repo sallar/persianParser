@@ -15,7 +15,9 @@ Please visit [The Demo Page](http://sallar.github.io/persianParser) on your iOS 
 Include `persianParser.js` in your HTML page and use the method described below.
 
 ## Methods
+
 ### Parse Text
+----------
 Use this method to do the conversion:
 
 ```javascript
@@ -36,6 +38,7 @@ for(i = 0; i <= elems.length; i++)
 You might as well check [the demo](http://sallar.github.io/persianParser) to see how it works.
 
 ###…
+----------
 More methods coming soon.
 
 ##License
