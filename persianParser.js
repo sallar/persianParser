@@ -32,7 +32,7 @@
      * PersianParser main class
      * 
      * @param {String} str Input String
-     * @class PersianJS
+     * @class PersianParser
      */
     function PersianParser(str)
     {
@@ -396,7 +396,7 @@
     }
 
     /**
-     * persianJS main function
+     * persianParser main constructor
      * 
      * @param  {String} inputStr Input String
      * @return {Object}          PersianParser object
@@ -431,18 +431,19 @@
         }
     };
 
-    //Expose PersianJs
-    //CommonJS module is defined
+    /**
+     * Export persianParser
+     */
+    //CommonJS is found
     if (hasModule) {
         module.exports = persianParser;
     }
+
     //global ender:false
     if (typeof ender === 'undefined') {
-        // here, `this` means `window` in the browser, or `global` on the server
-        // add `persianJs` as a global object via a string identifier,
-        // for Closure Compiler "advanced" mode
         this['persianParser'] = persianParser;
     }
+    
     //global define:false
     if (typeof define === 'function' && define.amd) {
         define('persianParser', [], function () {
