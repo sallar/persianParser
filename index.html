@@ -1,1 +1,42 @@
-My GitHub Page
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Persian Unicode Parser</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="persianParser.js"></script>
+</head>
+<body>
+    <h1>فارسی در آی‌او‌اس</h1>
+    <h2><span style="color: red;">۱۲۳۴۵۶۷۸۹۰</span> ،؛ ;,</h2>
+    <p>عكس خودم را در شیشة جلو ماشین می‌دیدم كه تمام صفحه را پوشانده بود، عكسی كج و معوج. همه جا مه‌آلود بود. در جاده‌های اطراف واندلیتز گم شده بودم، و هرچه گاز می‌دیدمدادم ماشین نمیرفت. مثل این كه حركت موتور با غلظت مه تنظیم شده باشد؛ هر چه غلیظ‌تر، كندتر. تابلوها را نمیدیدم، درختهای دو طرف را نمیدیدم، خانه‌ها را نمیدیدم، هیچ ماشینی نبود، فقط خط ممتد وسط جاده را می‌دیدم كه در نور چراغ ماشین مثل لاشة سفیدی از زیر ماشینم رد می‌شد، از روی تصویرم می‌گذشت و مرا دو نیم می‌كرد. همین نشانهای بود كه فكر كنم شاید به هتل برسم.</p>
+    <p>به پشت سر برگشتم، چیزی پیدا نبود، تنها دو نور قرمز می‌دیدم كه دانستم چراغهای عقب ماشین خودم است.<br>— تماما مخصوص، عباس معروفی</p>
+
+    <script>
+        /**
+         * Sniff the user agent. Bad idea.
+         * User another solution, since this is just
+         * for demonstration purposes.
+         */
+        function isMobileSafari() {
+            return navigator.userAgent.match(/(iPod|iPhone|iPad)/) && navigator.userAgent.match(/AppleWebKit/)
+        }
+
+        /**
+         * Proceed with converting if it's mobile.
+         */
+        if( isMobileSafari() || 1 )
+        {
+            var elems = document.querySelectorAll('h1, h2, p');
+
+            for(i = 0; i <= elems.length; i++)
+            {
+                if( typeof elems[i] !== 'undefined' ){
+                    elems[i].innerHTML = persianParser(elems[i].innerHTML).parse();
+                }
+            }
+        }
+    </script>
+</body>
+</html>

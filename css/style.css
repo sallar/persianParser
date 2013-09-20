@@ -1,0 +1,38 @@
+/*
+ * Fonts
+ * --------------------------------------------------------
+*/
+@font-face {
+    font-family: 'Zar';
+    font-weight: normal;
+    font-style: normal;
+    src: url('../fonts/bzar.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Yekan';
+    font-weight: normal;
+    font-style: normal;
+    src: url('../fonts/byekan.ttf') format('truetype');
+}
+
+
+/*
+ * Type
+ * --------------------------------------------------------
+*/
+body{
+    direction: rtl;
+    padding: 10% 10%;
+    font-size: 20px;
+    line-height: 1.615;
+}
+
+h1, h2{
+    font-family: 'Yekan', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: normal;
+    margin: 0;
+}
+
+p{
+    font-family: 'Zar', Times, serif;
+}
