@@ -175,37 +175,60 @@
 
         if (chars.charAt(i) == "ل" && formsOfAlef.indexOf(chars.charAt(i+1)) > -1)
         {
-            var alef = chars.charAt(i+1);
-
-            if (_isPersianChar(i - 1) && special.indexOf(chars.charAt(i - 1)) == -1) {
-                var alternative = characterAlternatives[alef][4];
-                string = String.fromCharCode(alternative);
-            }
-            else {
-                var alternative = characterAlternatives[alef][5];
-                string = String.fromCharCode(alternative);
-            }
-            chars = chars.substring(0, i) + string + chars.substring(i+2, chars.length);
+            string = _fixLamAlefCases(i);
         }
 
         // Search for persian character position in word (solo, begin, middle, end)
         // -----------------------------------------------------------------------
         else
         {
-            string = _setChar2(i, solo, begin, middle, end);
+            string = _getCharPosition(i, solo, begin, middle, end);
 
         }
         // End Search for Character Position
 
         return string;
-
     }
 
-    function _setChar2(i, solo, begin, middle, end) {
+    /**
+     * Detect Lam-Alef (ﻻ) cases
+     * 
+     * @param {Integer} i      Character location in the string
+     * @return {String}        Replaced character
+     */
+    function _fixLamAlefCases(i) {
+        var alef = chars.charAt(i + 1);
 
-        var currentCharType = checkCharType(i);
-        var prevCharType = checkCharType(i - 1);
-        var nextCharType = checkCharType(i + 1);
+        var alternativeIndex = 5;
+
+        if (_isPersianChar(i - 1) && special.indexOf(chars.charAt(i - 1)) == -1) {
+            alternativeIndex = 4;
+        }
+
+        var alternative = characterAlternatives[alef][alternativeIndex];
+
+        var string = String.fromCharCode(alternative);
+
+        chars = chars.substring(0, i) + string + chars.substring(i + 2, chars.length);
+
+        return string;
+    }
+
+    /**
+     * selects persian character position
+     * 
+     * @param {Integer} i      Character location in the string
+     * @param {String}  solo   Solo character
+     * @param {String}  begin  Begin character
+     * @param {String}  middle Middle character
+     * @param {String}  end    End character
+     * @return {String}        Replaced character
+     */
+    function _getCharPosition(i, solo, begin, middle, end) {
+
+        var currentCharType = _checkCharType(i);
+        var prevCharType = _checkCharType(i - 1);
+        var nextCharType = _checkCharType(i + 1);
 
         if (currentCharType == "special") {
             return (prevCharType == "normal-persian") ? end : solo;
@@ -234,11 +257,20 @@
         }
     }
 
-    function checkCharType(i) {
+    /**
+     * defines if a character is persian ( special / normal ) or non-persian
+     * 
+     * @param  {Integer}  i Character location in the string
+     * @return {String}    Type
+     */
+    function _checkCharType(i) {
+
         if (i == chars.length || i < 0)
             return "non-persian";
+
         if (special.indexOf(chars.charAt(i)) != -1)
             return "special";
+
         if (_isPersianChar(i))
             return "normal-persian";
 
