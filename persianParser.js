@@ -32,10 +32,10 @@
      * persian characters and their associated alternatives
      */
         characterAlternatives = {
-            "ا": [0xFE8D, 0xFE8D, 0xFE8E, 0xFE8E],
-            "أ": [0xFE83, 0xFE83, 0xFE84, 0xFE84],
-            "إ": [0xFE87, 0xFE87, 0xFE88, 0xFE88],
-            "آ": [0xFE81, 0xFE81, 0xFE82, 0xFE82],
+            "ا": [0xFE8D, 0xFE8D, 0xFE8E, 0xFE8E, 0xFEFC, 0xFEFB],
+            "أ": [0xFE83, 0xFE83, 0xFE84, 0xFE84, 0xFEF8, 0xFEF7],
+            "إ": [0xFE87, 0xFE87, 0xFE88, 0xFE88, 0xFEFA, 0xFEF9],
+            "آ": [0xFE81, 0xFE81, 0xFE82, 0xFE82, 0xFEF6, 0xFEF5],
             "ب": [0xFE8F, 0xFE91, 0xFE92, 0xFE90],
             "پ": [0xFB56, 0xFB58, 0xFB59, 0xFB57],
             "ت": [0xFE95, 0xFE97, 0xFE98, 0xFE96],
@@ -168,46 +168,23 @@
 
         // Detect Lam-Alef (ﻻ) cases
         // -----------------------------------------------------------------------
-        if (chars.charAt(i) == "ل" && chars.charAt(i+1) == "ا")
+        var formsOfAlef = ["ا", "أ", "إ", "آ"];
+
+        if (chars.charAt(i) == "ل" && formsOfAlef.indexOf(chars.charAt(i+1)) > -1)
         {
-            if (_isPersianChar(i-1) && special.indexOf(chars.charAt(i-1)) == -1) {
-                string = String.fromCharCode(0xFEFC);
+            var alef = chars.charAt(i+1);
+
+            if (_isPersianChar(i - 1) && special.indexOf(chars.charAt(i - 1)) == -1) {
+                var alternative = characterAlternatives[alef][4];
+                string = String.fromCharCode(alternative);
             }
             else {
-                string = String.fromCharCode(0xFEFB);
+                var alternative = characterAlternatives[alef][5];
+                string = String.fromCharCode(alternative);
             }
             chars = chars.substring(0, i) + string + chars.substring(i+2, chars.length);
         }
-        else if (chars.charAt(i) == "ل" && chars.charAt(i+1) == "أ")
-        {
-            if (_isPersianChar(i-1) && special.indexOf(chars.charAt(i-1)) == -1) {
-                string = String.fromCharCode(0xFEF8);
-            }
-            else {
-                string = String.fromCharCode(0xFEF7);
-            }
-            chars = chars.substring(0, i) + string + chars.substring(i+2, chars.length);
-        }
-        else if (chars.charAt(i) == "ل" && chars.charAt(i+1) == "إ")
-        {
-            if (_isPersianChar(i-1) && special.indexOf(chars.charAt(i-1)) == -1) {
-                string = String.fromCharCode(0xFEFA);
-            }
-            else {
-                string = String.fromCharCode(0xFEF9);
-            }
-            chars = chars.substring(0, i) + string + chars.substring(i+2, chars.length);
-        }
-        else if (chars.charAt(i) == "ل" && chars.charAt(i+1) == "آ")
-        {
-            if (_isPersianChar(i-1) && special.indexOf(chars.charAt(i-1)) == -1) {
-                string = String.fromCharCode(0xFEF6);
-            }
-            else {
-                string = String.fromCharCode(0xFEF5);
-            }
-            chars = chars.substring(0, i) + string + chars.substring(i+2, chars.length);
-        }
+
         // Search for persian character position in word (solo, begin, middle, end)
         // -----------------------------------------------------------------------
         else
