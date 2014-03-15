@@ -30,6 +30,9 @@
 
     /**
      * persian characters and their associated alternatives
+     *
+     * structure :
+     * character : [ solo, begin, middle, end, Lam-Alef-1, Lam-Alef-2 ]
      */
         characterAlternatives = {
             "ا": [0xFE8D, 0xFE8D, 0xFE8E, 0xFE8E, 0xFEFC, 0xFEFB],
@@ -189,77 +192,57 @@
         // -----------------------------------------------------------------------
         else
         {
-            if (i == 0)
-            {
-                if (special.indexOf(chars.charAt(i)) != -1 || !_isPersianChar(i+1)) {
-                    string = solo;
-                }
-                else {
-                    string = begin;
-                }
-            }
-            else if (i == chars.length-1)
-            {
-                if (special.indexOf(chars.charAt(i-1)) != -1 || !_isPersianChar(i-1)) {
-                    string = solo;
-                }
-                else {
-                    string = end;
-                }
-            }
-            else if (_isPersianChar(i-1) && _isPersianChar(i+1))
-            {
-                if (special.indexOf(chars.charAt(i-1)) != -1) {
-                    if (special.indexOf(chars.charAt(i)) != -1) {
-                        string = solo;
-                    }
-                    else {
-                        string = begin;
-                    }
-                }
-                else {
-                    if (special.indexOf(chars.charAt(i)) != -1 || chars.charAt(i+1) == "ء" || chars.charAt(i) == "ة") {
-                        if (chars.charAt(i-1) != "ة") {
-                            string = end;
-                        } else {
-                            string = begin;
-                        }
-                    }
-                    else {
-                        if (chars.charAt(i-1) != "ة") {
-                            string = middle;
-                        } else {
-                            string = begin;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if (_isPersianChar(i-1) && !_isPersianChar(i+1)) {
-                    if (special.indexOf(chars.charAt(i-1)) != -1) {
-                        string = solo;
-                    }
-                    else {
-                        string = end;
-                    }
-                }
-                else if (!_isPersianChar(i-1) && _isPersianChar(i+1)) {
-                    if (special.indexOf(chars.charAt(i)) != -1) {
-                        string = solo;
-                    }
-                    else {
-                        string = begin;
-                    }
-                }
-                else if (!_isPersianChar(i-1) && !_isPersianChar(i+1)) {
-                    string = solo;
-                }
-            }
+            string = _setChar2(i, solo, begin, middle, end);
+
         }
         // End Search for Character Position
 
         return string;
+
+    }
+
+    function _setChar2(i, solo, begin, middle, end) {
+
+        var currentCharType = checkCharType(i);
+        var prevCharType = checkCharType(i - 1);
+        var nextCharType = checkCharType(i + 1);
+
+        if (currentCharType == "special") {
+            return (prevCharType == "normal-persian") ? end : solo;
+        }
+
+        if (currentCharType == "normal-persian") {
+
+            if (prevCharType == "non-persian" || prevCharType == "special") {
+                return (nextCharType == "non-persian") ? solo : begin;
+            }
+
+            if (prevCharType == "normal-persian") {
+
+                var currentChar = chars.charAt(i);
+                var prevChar = chars.charAt(i - 1);
+                var nextChar = chars.charAt(i + 1);
+
+                if (currentChar == "ة" || nextChar == "ء") {
+                    return (prevChar != "ة") ? end : solo;
+                }
+
+                if (nextCharType == "non-persian" ) return end;
+
+                return middle;
+            }
+        }
+    }
+
+    function checkCharType(i) {
+        if (i == chars.length || i < 0)
+            return "non-persian";
+        if (special.indexOf(chars.charAt(i)) != -1)
+            return "special";
+        if (_isPersianChar(i))
+            return "normal-persian";
+
+        return "non-persian";
     }
 
     /**
