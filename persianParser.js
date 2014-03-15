@@ -29,6 +29,64 @@
         special  += String.fromCharCode(0xFEFC,0xFEFB,0xFEF8,0xFEF7,0xFEFA,0xFEF9,0xFEF6,0xFEF5);
 
     /**
+     * persian characters and their associated alternatives
+     */
+        characterAlternatives = {
+            "ا": [0xFE8D, 0xFE8D, 0xFE8E, 0xFE8E],
+            "أ": [0xFE83, 0xFE83, 0xFE84, 0xFE84],
+            "إ": [0xFE87, 0xFE87, 0xFE88, 0xFE88],
+            "آ": [0xFE81, 0xFE81, 0xFE82, 0xFE82],
+            "ب": [0xFE8F, 0xFE91, 0xFE92, 0xFE90],
+            "پ": [0xFB56, 0xFB58, 0xFB59, 0xFB57],
+            "ت": [0xFE95, 0xFE97, 0xFE98, 0xFE96],
+            "ث": [0xFE99, 0xFE9B, 0xFE9C, 0xFE9A],
+            "ج": [0xFE9D, 0xFE9F, 0xFEA0, 0xFE9E],
+            "چ": [0xfb7a, 0xfb7c, 0xfb7d, 0xfb7b],
+            "ح": [0xFEA1, 0xFEA3, 0xFEA4, 0xFEA2],
+            "خ": [0xFEA5, 0xFEA7, 0xFEA8, 0xFEA6],
+            "د": [0xFEA9, 0xFEA9, 0xFEAA, 0xFEAA],
+            "ذ": [0xFEAB, 0xFEAB, 0xFEAC, 0xFEAC],
+            "ر": [0xFEAD, 0xFEAD, 0xFEAE, 0xFEAE],
+            "ز": [0xFEAF, 0xFEAF, 0xFEB0, 0xFEB0],
+            "ژ": [0xfb8a, 0xfb8a, 0xfb8b, 0xfb8b],
+            "س": [0xFEB1, 0xFEB3, 0xFEB4, 0xFEB2],
+            "ش": [0xFEB5, 0xFEB7, 0xFEB8, 0xFEB6],
+            "ص": [0xFEB9, 0xFEBB, 0xFEBC, 0xFEBA],
+            "ض": [0xFEBD, 0xFEBF, 0xFEC0, 0xFEBE],
+            "ط": [0xFEC1, 0xFEC3, 0xFEC4, 0xFEC2],
+            "ظ": [0xFEC5, 0xFEC7, 0xFEC8, 0xFEC6],
+            "ع": [0xFEC9, 0xFECB, 0xFECC, 0xFECA],
+            "غ": [0xFECD, 0xFECF, 0xFED0, 0xFECE],
+            "ف": [0xFED1, 0xFED3, 0xFED4, 0xFED2],
+            "ق": [0xFED5, 0xFED7, 0xFED8, 0xFED6],
+            "ك": [0xFED9, 0xFEDB, 0xFEDC, 0xFEDA],
+            "ک": [0xfed9, 0xfedb, 0xfedc, 0xfeda],
+            "گ": [0xfb92, 0xfb94, 0xfb95, 0xfb93],
+            "ل": [0xFEDD, 0xFEDF, 0xFEE0, 0xFEDE],
+            "م": [0xFEE1, 0xFEE3, 0xFEE4, 0xFEE2],
+            "ن": [0xFEE5, 0xFEE7, 0xFEE8, 0xFEE6],
+            "ه": [0xFEE9, 0xFEEB, 0xFEEC, 0xFEEA],
+            "ة": [0xFE93, "", "", 0xFE94],
+            "و": [0xFEED, 0xFEED, 0xFEEE, 0xFEEE],
+            "ؤ": [0xFE85, 0xFE85, 0xFE86, 0xFE86],
+            "ی": [0xfeef, 0xfef3, 0xfef4, 0xfef0],
+            "ي": [0xFEF1, 0xFEF3, 0xFEF4, 0xFEF2],
+            "ئ": [0xFE89, 0xFE8B, 0xFE8C, 0xFE8A],
+            "ء": [0xFE80],
+            "۰": [0x0660],
+            "۱": ["1"],
+            "۲": ["2"],
+            "۳": ["3"],
+            "۴": ["4"],
+            "۵": ["5"],
+            "۶": ["6"],
+            "۷": ["7"],
+            "۸": ["8"],
+            "۹": ["9"],
+            "?": [0x061F]
+        }
+
+    /**
      * PersianParser main class
      * 
      * @param {String} str Input String
@@ -71,172 +129,27 @@
      */
     function _replaceChar(i)
     {
-        var string;
+        charToReplace = chars.charAt(i);
 
-        switch (chars.charAt(i))
-        {
-            case "ا":
-                string = _setChar(i, String.fromCharCode(0xFE8D), String.fromCharCode(0xFE8D), String.fromCharCode(0xFE8E), String.fromCharCode(0xFE8E));
-                break;
-            case "أ":
-                string = _setChar(i, String.fromCharCode(0xFE83), String.fromCharCode(0xFE83), String.fromCharCode(0xFE84), String.fromCharCode(0xFE84));
-                break;
-            case "إ":
-                string = _setChar(i, String.fromCharCode(0xFE87), String.fromCharCode(0xFE87), String.fromCharCode(0xFE88), String.fromCharCode(0xFE88));
-                break;
-            case "آ":
-                string = _setChar(i, String.fromCharCode(0xFE81), String.fromCharCode(0xFE81), String.fromCharCode(0xFE82), String.fromCharCode(0xFE82));
-                break;
-            case "ب":
-                string = _setChar(i, String.fromCharCode(0xFE8F), String.fromCharCode(0xFE91), String.fromCharCode(0xFE92), String.fromCharCode(0xFE90));
-                break;
-            case "پ":
-                string = _setChar(i, String.fromCharCode(0xFB56), String.fromCharCode(0xFB58), String.fromCharCode(0xFB59), String.fromCharCode(0xFB57));
-                break;
-            case "ت":
-                string = _setChar(i, String.fromCharCode(0xFE95), String.fromCharCode(0xFE97), String.fromCharCode(0xFE98), String.fromCharCode(0xFE96));
-                break;
-            case "ث":
-                string = _setChar(i, String.fromCharCode(0xFE99), String.fromCharCode(0xFE9B), String.fromCharCode(0xFE9C), String.fromCharCode(0xFE9A));
-                break;
-            case "ج":
-                string = _setChar(i, String.fromCharCode(0xFE9D), String.fromCharCode(0xFE9F), String.fromCharCode(0xFEA0), String.fromCharCode(0xFE9E));
-                break;
-            case "چ":
-                string = _setChar(i, String.fromCharCode(0xfb7a), String.fromCharCode(0xfb7c), String.fromCharCode(0xfb7d), String.fromCharCode(0xfb7b));
-                break;
-            case "ح":
-                string = _setChar(i, String.fromCharCode(0xFEA1), String.fromCharCode(0xFEA3), String.fromCharCode(0xFEA4), String.fromCharCode(0xFEA2));
-                break;
-            case "خ":
-                string = _setChar(i, String.fromCharCode(0xFEA5), String.fromCharCode(0xFEA7), String.fromCharCode(0xFEA8), String.fromCharCode(0xFEA6));
-                break;
-            case "د":
-                string = _setChar(i, String.fromCharCode(0xFEA9), String.fromCharCode(0xFEA9), String.fromCharCode(0xFEAA), String.fromCharCode(0xFEAA));
-                break;
-            case "ذ":
-                string = _setChar(i, String.fromCharCode(0xFEAB), String.fromCharCode(0xFEAB), String.fromCharCode(0xFEAC), String.fromCharCode(0xFEAC));
-                break;
-            case "ر":
-                string = _setChar(i, String.fromCharCode(0xFEAD), String.fromCharCode(0xFEAD), String.fromCharCode(0xFEAE), String.fromCharCode(0xFEAE));
-                break;
-            case "ز":
-                string = _setChar(i, String.fromCharCode(0xFEAF), String.fromCharCode(0xFEAF), String.fromCharCode(0xFEB0), String.fromCharCode(0xFEB0));
-                break;
-            case "ژ":
-                string = _setChar(i, String.fromCharCode(0xfb8a), String.fromCharCode(0xfb8a), String.fromCharCode(0xfb8b), String.fromCharCode(0xfb8b));
-                break;
-            case "س":
-                string = _setChar(i, String.fromCharCode(0xFEB1), String.fromCharCode(0xFEB3), String.fromCharCode(0xFEB4), String.fromCharCode(0xFEB2));
-                break;
-            case "ش":
-                string = _setChar(i, String.fromCharCode(0xFEB5), String.fromCharCode(0xFEB7), String.fromCharCode(0xFEB8), String.fromCharCode(0xFEB6));
-                break;
-            case "ص":
-                string = _setChar(i, String.fromCharCode(0xFEB9), String.fromCharCode(0xFEBB), String.fromCharCode(0xFEBC), String.fromCharCode(0xFEBA));
-                break;
-            case "ض":
-                string = _setChar(i, String.fromCharCode(0xFEBD), String.fromCharCode(0xFEBF), String.fromCharCode(0xFEC0), String.fromCharCode(0xFEBE));
-                break;
-            case "ط":
-                string = _setChar(i, String.fromCharCode(0xFEC1), String.fromCharCode(0xFEC3), String.fromCharCode(0xFEC4), String.fromCharCode(0xFEC2));
-                break;
-            case "ظ":
-                string = _setChar(i, String.fromCharCode(0xFEC5), String.fromCharCode(0xFEC7), String.fromCharCode(0xFEC8), String.fromCharCode(0xFEC6));
-                break;
-            case "ع":
-                string = _setChar(i, String.fromCharCode(0xFEC9), String.fromCharCode(0xFECB), String.fromCharCode(0xFECC), String.fromCharCode(0xFECA));
-                break;
-            case "غ":
-                string = _setChar(i, String.fromCharCode(0xFECD), String.fromCharCode(0xFECF), String.fromCharCode(0xFED0), String.fromCharCode(0xFECE));
-                break;
-            case "ف":
-                string = _setChar(i, String.fromCharCode(0xFED1), String.fromCharCode(0xFED3), String.fromCharCode(0xFED4), String.fromCharCode(0xFED2));
-                break;
-            case "ق":
-                string = _setChar(i, String.fromCharCode(0xFED5), String.fromCharCode(0xFED7), String.fromCharCode(0xFED8), String.fromCharCode(0xFED6));
-                break;
-            case "ك":
-                string = _setChar(i, String.fromCharCode(0xFED9), String.fromCharCode(0xFEDB), String.fromCharCode(0xFEDC), String.fromCharCode(0xFEDA));
-                break;
-            case "ک":
-                string = _setChar(i, String.fromCharCode(0xfed9), String.fromCharCode(0xfedb), String.fromCharCode(0xfedc), String.fromCharCode(0xfeda));
-                break;
-            case "گ":
-                string = _setChar(i, String.fromCharCode(0xfb92), String.fromCharCode(0xfb94), String.fromCharCode(0xfb95), String.fromCharCode(0xfb93));
-                break;
-            case "ل":
-                string = _setChar(i, String.fromCharCode(0xFEDD), String.fromCharCode(0xFEDF), String.fromCharCode(0xFEE0), String.fromCharCode(0xFEDE));
-                break;
-            case "م":
-                string = _setChar(i, String.fromCharCode(0xFEE1), String.fromCharCode(0xFEE3), String.fromCharCode(0xFEE4), String.fromCharCode(0xFEE2));
-                break;
-            case "ن":
-                string = _setChar(i, String.fromCharCode(0xFEE5), String.fromCharCode(0xFEE7), String.fromCharCode(0xFEE8), String.fromCharCode(0xFEE6));
-                break;
-            case "ه":
-                string = _setChar(i, String.fromCharCode(0xFEE9), String.fromCharCode(0xFEEB), String.fromCharCode(0xFEEC), String.fromCharCode(0xFEEA));
-                break;
-            case "ة":
-                string = _setChar(i, String.fromCharCode(0xFE93), "", "", String.fromCharCode(0xFE94));
-                break;
-            case "و":
-                string = _setChar(i, String.fromCharCode(0xFEED), String.fromCharCode(0xFEED), String.fromCharCode(0xFEEE), String.fromCharCode(0xFEEE));
-                break;
-            case "ؤ":
-                string = _setChar(i, String.fromCharCode(0xFE85), String.fromCharCode(0xFE85), String.fromCharCode(0xFE86), String.fromCharCode(0xFE86));
-                break;
-            case "ی":
-                string = _setChar(i, String.fromCharCode(0xfeef), String.fromCharCode(0xfef3), String.fromCharCode(0xfef4), String.fromCharCode(0xfef0));
-                break;
-            case "ي":
-                string = _setChar(i, String.fromCharCode(0xFEF1), String.fromCharCode(0xFEF3), String.fromCharCode(0xFEF4), String.fromCharCode(0xFEF2));
-                break;
-            case "ئ":
-                string = _setChar(i, String.fromCharCode(0xFE89), String.fromCharCode(0xFE8B), String.fromCharCode(0xFE8C), String.fromCharCode(0xFE8A));
-                break;
-            case "ء":
-                string = String.fromCharCode(0xFE80);
-                break;
-            case "۰":
-                string = String.fromCharCode(0x0660);
-                break;
-            case "۱":
-                string = "1";
-                break;
-            case "۲":
-                string = "2";
-                break;
-            case "۳":
-                string = "3";
-                break;
-            case "۴":
-                string = "4";
-                break;
-            case "۵":
-                string = "5";
-                break;
-            case "۶":
-                string = "6";
-                break;
-            case "۷":
-                string = "7";
-                break;
-            case "۸":
-                string = "8";
-                break;
-            case "۹":
-                string = "9";
-                break;
-            case "?":
-                string = String.fromCharCode(0x061F);
-                break;
-            default:
-                string = chars.charAt(i);
-                break;
+        if (characterAlternatives[charToReplace]) {
+            var alternatives = characterAlternatives[charToReplace];
+
+            if (alternatives.length == 1) {
+                var alternative = alternatives[0];
+                return (alternative >= 0 && alternative <= 9) ? alternative : String.fromCharCode(alternative);
+            }
+            else {
+                var solo = String.fromCharCode(alternatives[0]);
+                var begin =alternatives[1] != "" ? String.fromCharCode(alternatives[1]) : "";
+                var middle = alternatives[2] != "" ? String.fromCharCode(alternatives[2]) : "";
+                var end = String.fromCharCode(alternatives[3]);
+
+                return _setChar(i, solo, begin, middle, end);
+            }
         }
-
-        return string;
+        else{
+            return charToReplace;
+        }
     }
 
     /**
